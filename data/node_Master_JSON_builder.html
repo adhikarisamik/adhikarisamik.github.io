@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+    .node circle {
+        cursor: pointer;
+        stroke: #3182bd;
+        stroke-width: 1.5px;
+    }
+
+    .node text {
+        font: 10px sans-serif;
+        pointer-events: none;
+        text-anchor: middle;
+    }
+
+    line.link {
+        fill: none;
+        stroke: #9ecae1;
+        stroke-width: 1.5px;
+    }
+
+</style>
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src = "http://d3js.org/queue.v1.min.js"></script>
+
+<script>
+
+
+    var _1980_
+    var _1985_
+    var _1990_, _1995_, _2000_, _2005_, _2010;
+    var sankey_1980,sankey_1985,sankey_1990,sankey_1995,sankey_2000,sankey_2005, sankey_2010;
+
+    queue()
+            .defer(d3.json, "_2010.json")
+            .defer(d3.json, "_2005.json")
+            .defer(d3.json, "_2000.json")
+            .defer(d3.json, "_1995.json")
+            .defer(d3.json, "_1990.json")
+            .defer(d3.json, "_1985.json")
+            .defer(d3.json, "_1980.json")
+            .await(update);
+
+
+
+
+    //Ready function takes the data files loaded via the queue function and begins with loading the WorldMap
+    function update(error, _2010, _2005, _2000, _1995, _1990, _1985, _1980) {
+
+
+        var sankey_fill = {
+            "nodes":[
+                {"id": 1, "name":"Male"},
+                {"id": 2,"name":"Female"},
+                {"id": 3,"name":"Ed LVL I"},
+                {"id": 4,"name":"Ed LVL II"},
+                {"id": 5,"name":"Ed LVL III"},
+                {"id": 6,"name": "OECD"}
+            ],
+            "links":[
+                {"id": 1,"source":"Male","target":"Ed LVL I","value":11395189},
+                {"id": 2,"source":"Male","target":"Ed LVL II","value":10667654},
+                {"id": 3,"source":"Male","target":"Ed LVL III","value":14194359},
+                {"id": 4,"source":"Female","target":"Ed LVL I","value":11890368},
+                {"id": 5,"source":"Female","target":"Ed LVL II","value":10047154},
+                {"id": 6,"source":"Female","target":"Ed LVL III","value":15017105},
+                {"id": 7,"source":"Ed LVL I","target":"OECD","value":23285557},
+                {"id": 8,"source":"Ed LVL II","target":"OECD","value":20714808},
+                {"id": 9,"source":"Ed LVL III","target":"OECD","value":29211464}
+            ]}
+
+        var year_data = _1980;
+        for(h=0; h<7; h++) {
+            if(h==0){year_data = _1980}
+            else if (h ==1){year_data = _1985}
+            else if (h==2) {year_data = _1990}
+            else if (h==3){year_data = _1995}
+            else if (h==4) {year_data = _2000}
+            else if (h==5) {year_data = _2005}
+            else if (h==6) {year_data = _2010}
+            var genderMI = 0;
+            var genderFI = 0;
+            var genderMII = 0;
+            var genderFII = 0;
+            var genderMIII = 0;
+            var genderFIII = 0;
+            var totalI=0, totalII=0, totalIII=0;
+
+            for (i = 0; i < 20; i++) {
+                for (z = 0; z < 195; z++) {
+                    genderMI = genderMI + parseInt(year_data._children[i]._children[z]._children[0]._children[0].size)
+                    genderFI = genderFI + parseInt(year_data._children[i]._children[z]._children[0]._children[1].size)
+
+                    genderMII = genderMII + parseInt(year_data._children[i]._children[z]._children[1]._children[0].size)
+                    genderFII = genderFII + parseInt(year_data._children[i]._children[z]._children[1]._children[1].size)
+
+                    genderMIII = genderMIII + parseInt(year_data._children[i]._children[z]._children[2]._children[0].size)
+                    genderFIII = genderFIII + parseInt(year_data._children[i]._children[z]._children[2]._children[1].size)
+
+                    totalI = genderMI + genderFI;
+                    totalII = genderMII + genderFII;
+                    totalIII = genderMIII + genderFIII;
+
+
+                }
+            }
+
+            sankey_fill.links[0].value = genderMI
+            sankey_fill.links[1].value = genderMII
+            sankey_fill.links[2].value = genderMIII
+            sankey_fill.links[3].value = genderFI
+            sankey_fill.links[4].value = genderFII
+            sankey_fill.links[5].value = genderFIII
+            sankey_fill.links[6].value = totalI
+            sankey_fill.links[7].value = totalII
+            sankey_fill.links[8].value = totalIII
+
+//            var str = JSON.stringify(sankey_fill, null, 1); // spacing level = 2
+//            console.log(str)
+        }
+
+
+
+        var year_data = _1980;
+        for(h=0; h<7; h++) {
+            var sankey_oecd = {
+                "nodes":[
+                    {"id": 1,"name":"Male"},
+                    {"id": 2,"name":"Female"},
+                    {"id": 3,"name":"Ed LVL I"},
+                    {"id": 4,"name":"Ed LVL II"},
+                    {"id": 5,"name":"Ed LVL III"}
+
+                ],
+                "links":[
+                    {"id": 1,"source":"Male","target":"Ed LVL I","value":0},
+                    {"id": 2,"source":"Male","target":"Ed LVL II","value":0},
+                    {"id": 3,"source":"Male","target":"Ed LVL III","value":0},
+
+                    {"id": 4,"source":"Female","target":"Ed LVL I","value":0},
+                    {"id": 5,"source":"Female","target":"Ed LVL II","value":0},
+                    {"id": 6,"source":"Female","target":"Ed LVL III","value":0}
+
+
+
+                ]}
+            if(h==0){year_data = _1980}
+            else if (h ==1){year_data = _1985}
+            else if (h==2) {year_data = _1990}
+            else if (h==3){year_data = _1995}
+            else if (h==4) {year_data = _2000}
+            else if (h==5) {year_data = _2005}
+            else if (h==6) {year_data = _2010}
+            var genderMI = 0;
+            var genderFI = 0;
+            var genderMII = 0;
+            var genderFII = 0;
+            var genderMIII = 0;
+            var genderFIII = 0;
+            var totalI=0, totalII=0, totalIII=0;
+            var count = 7;
+            var counter =  6;
+            var totalmaleI = 0;
+            var totalfemaleI=0;
+            var totalmaleII = 0;
+            var totalfemaleII=0;
+            var totalmaleIII = 0;
+            var totalfemaleIII=0;
+
+            for (i = 0; i < 20; i++) {
+                var genderMI = 0;
+                var genderFI = 0;
+                var genderMII = 0;
+                var genderFII = 0;
+                var genderMIII = 0;
+                var genderFIII = 0;
+                var totalI=0, totalII=0, totalIII=0;
+                for (z = 0; z < 195; z++) {
+                    genderMI = genderMI + parseInt(year_data._children[i]._children[z]._children[0]._children[0].size)
+                    genderFI = genderFI + parseInt(year_data._children[i]._children[z]._children[0]._children[1].size)
+
+                    genderMII = genderMII + parseInt(year_data._children[i]._children[z]._children[1]._children[0].size)
+                    genderFII = genderFII + parseInt(year_data._children[i]._children[z]._children[1]._children[1].size)
+
+                    genderMIII = genderMIII + parseInt(year_data._children[i]._children[z]._children[2]._children[0].size)
+                    genderFIII = genderFIII + parseInt(year_data._children[i]._children[z]._children[2]._children[1].size)
+
+                    totalI = genderMI + genderFI;
+                    totalII = genderMII + genderFII;
+                    totalIII = genderMIII + genderFIII;
+
+
+                }
+
+                sankey_oecd.nodes.push({"id": counter, "name": year_data._children[i].name});
+                sankey_oecd.links.push(
+                        {"id": count, "source":"Ed LVL I","target": year_data._children[i].name, "value":totalI},
+                        {"id": count+1, "source":"Ed LVL II","target":year_data._children[i].name, "value":totalII},
+                        {"id": count+2, "source":"Ed LVL III","target":year_data._children[i].name, "value":totalIII}
+                )
+
+                totalmaleI = totalmaleI +genderMI;
+                totalfemaleI=totalfemaleI +genderFI;
+                totalmaleII = totalmaleII +genderMII;
+                totalfemaleII=totalfemaleII +genderFII;
+                totalmaleIII = totalmaleIII +genderMIII;
+                 totalfemaleIII=totalfemaleIII +genderFIII;;
+                counter++;
+                count = count + 3;
+            }
+
+            sankey_oecd.links[0].value = totalmaleI
+            sankey_oecd.links[1].value = totalmaleII
+            sankey_oecd.links[2].value = totalmaleIII
+            sankey_oecd.links[3].value = totalfemaleI
+            sankey_oecd.links[4].value = totalfemaleII
+            sankey_oecd.links[5].value = totalfemaleIII
+
+        }
+
+        var str = JSON.stringify(sankey_oecd, null, 1); // spacing level = 2
+        console.log(str)
+
+
+        var sankey_fillII = {
+            "nodes":[
+                {"name":"Non_OECD Country"},
+                {"name":"Ed LVL I"},
+                {"name":"Ed LVL II"},
+                {"name":"Ed LVL III"},
+                {"name": "OECD"}
+            ],
+            "links":[
+                {"source":"Male","target":"Ed LVL I","value":0},
+                {"source":"Male","target":"Ed LVL II","value":0},
+                {"source":"Male","target":"Ed LVL III","value":0},
+
+                {"source":"Ed LVL I","target":"OECD","value":0},
+                {"source":"Ed LVL II","target":"OECD","value":0},
+                {"source":"Ed LVL III","target":"OECD","value":0}
+            ]}
+
+    //Create Empty frame of future JSON file
+    var gender_fill = {
+        "name": "Year", "size": 0, "change": 0,
+        "_children": [
+            {
+                "name": "Education Level", "size": 0, "change": 0,
+                "_children": [
+                    {
+                        "name": "Level I", "size": 0,"change": 0,
+                        "_children": [
+                            {
+                                "name": "Gender",
+                                "_children": [
+                                    {"name": "Male", "size": 0, "change": 0},
+                                    {"name": "Female", "size": 0, "change": 0}
+                                ]
+                            }]
+                    },
+                    {
+                        "name": "Level II", "size": 0, "change": 0,
+                        "_children": [
+                            {
+                                "name": "Gender",
+                                "_children": [
+                                    {"name": "Male", "size": 0, "change": 0},
+                                    {"name": "Female", "size": 0, "change": 0}
+                                ]
+                            }]
+                    },
+                    {
+                        "name": "Level III","size": 0, "change": 0,
+                        "_children": [
+                            {
+                                "name": "Gender",
+                                "_children": [
+                                    {"name": "Male", "size": 0, "change": 0},
+                                    {"name": "Female", "size": 0, "change": 0}
+                                ]
+                            }]
+                    } ]
+                    }
+                ]
+            };
+
+
+        //Create Empty frame of future JSON file
+        var year_fill = {
+            "name": "Year", "size": 0, "change": 0,
+            "_children": [
+                {
+                    "name": "OECD", "size": 0, "change": 0,
+                    "_children": [
+                        {
+                            "name": "Level I", "size": 0,"change": 0,
+                            "_children": [
+                                {
+                                    "name": "Gender",
+                                    "_children": [
+                                        {"name": "Male", "size": 0, "change": 0},
+                                        {"name": "Female", "size": 0, "change": 0}
+                                    ]
+                                }]
+                        },
+                        {
+                            "name": "Level I", "size": 0, "change": 0,
+                            "_children": [
+                                {
+                                    "name": "Gender",
+                                    "_children": [
+                                        {"name": "Male", "size": 0, "change": 0},
+                                        {"name": "Female", "size": 0, "change": 0}
+                                    ]
+                                }]
+                        },
+                        {
+                            "name": "Level I","size": 0,
+                            "_children": [
+                                {
+                                    "name": "Gender",
+                                    "_children": [
+                                        {"name": "Male", "size": 0, "change": 0},
+                                        {"name": "Female", "size": 0, "change": 0}
+                                    ]
+                                }]
+                        } ]
+                }
+            ]
+        };
+    year_fill._children.splice(0,1)
+    //Push on 19 more OECD Countries
+    for (i=0; i<20;i++) {
+        year_fill._children.push({
+            "name": "OECD", "size": 0, "change": 0,
+            "_children": [
+                {
+                    "name": "Level I", "size": 0,"change": 0,
+                    "_children": [
+                        {
+                            "name": "Gender",
+                            "_children": [
+                                {"name": "Male", "size": 0, "change": 0},
+                                {"name": "Female", "size": 0, "change": 0}
+                            ]
+                        }]
+                },
+                {
+                    "name": "Level I", "size": 0, "change": 0,
+                    "_children": [
+                        {
+                            "name": "Gender",
+                            "_children": [
+                                {"name": "Male", "size": 0, "change": 0},
+                                {"name": "Female", "size": 0, "change": 0}
+                            ]
+                        }]
+                },
+                {
+                    "name": "Level I","size": 0,
+                    "_children": [
+                        {
+                            "name": "Gender",
+                            "_children": [
+                                {"name": "Male", "size": 0, "change": 0},
+                                {"name": "Female", "size": 0, "change": 0}
+                            ]
+                        }]
+                } ]
+        })
+    }
+
+    //Fill in each OECD Country with 196 other non oecd countries
+//    for(z=0; z<20;z++) {
+//        year_fill._children[z]._children.splice(0,1);
+//            year_fill._children[z]._children.push({
+//
+//                        "name": "OECD", "size": 0, "change": 0,
+//                        "_children": [
+//                            {
+//                                "name": "Level I", "size": 0,"change": 0,
+//                                "_children": [
+//                                    {
+//                                        "name": "Gender",
+//                                        "_children": [
+//                                            {"name": "Male", "size": 0, "change": 0},
+//                                            {"name": "Female", "size": 0, "change": 0}
+//                                        ]
+//                                    }]
+//                            },
+//                            {
+//                                "name": "Level I", "size": 0, "change": 0,
+//                                "_children": [
+//                                    {
+//                                        "name": "Gender",
+//                                        "_children": [
+//                                            {"name": "Male", "size": 0, "change": 0},
+//                                            {"name": "Female", "size": 0, "change": 0}
+//                                        ]
+//                                    }]
+//                            },
+//                            {
+//                                "name": "Level I","size": 0,
+//                                "_children": [
+//                                    {
+//                                        "name": "Gender",
+//                                        "_children": [
+//                                            {"name": "Male", "size": 0, "change": 0},
+//                                            {"name": "Female", "size": 0, "change": 0}
+//                                        ]
+//                                    }]
+//                            } ]
+//                    }
+//            )
+//        }
+
+
+
+        var year = _1980;
+        for(h=0; h<7; h++) {
+            var last = JSON.parse(JSON.stringify(gender_fill))
+            if(h==0){year = _1980}
+            else if (h ==1){year = _1985}
+            else if (h==2) {year = _1990}
+            else if (h==3){year = _1995}
+            else if (h==4) {year = _2000}
+            else if (h==5) {year = _2005}
+            else if (h==6) {year = _2010}
+
+            var genderMI = 0;
+            var genderFI = 0;
+            var genderMII = 0;
+            var genderFII = 0;
+            var genderMIII = 0;
+            var genderFIII = 0;
+            var LVL1 = 0;
+            var LVL2 = 0;
+            var LVL3 = 0;
+
+            gender_fill.name = year.name;
+            gender_fill.size = year.size;
+            gender_fill.change = year.size /last.size
+
+            if(gender_fill.change < 1){ gender_fill.change = (gender_fill.change - 1)*100 }
+            else if (gender_fill.change == 1) {gender_fill.change = 0}
+            else {gender_fill.change = (gender_fill.change - 1) * 100}
+
+
+
+            for (i = 0; i < 20; i++) {
+                for (z = 0; z < 195; z++) {
+
+
+                   genderMI = genderMI + parseInt(year._children[i]._children[z]._children[0]._children[0].size)
+                   genderFI = genderFI + parseInt(year._children[i]._children[z]._children[0]._children[1].size)
+
+                   genderMII = genderMII + parseInt(year._children[i]._children[z]._children[1]._children[0].size)
+                   genderFII = genderFII + parseInt(year._children[i]._children[z]._children[1]._children[1].size)
+
+                   genderMIII = genderMIII + parseInt(year._children[i]._children[z]._children[2]._children[0].size)
+                   genderFIII = genderFIII + parseInt(year._children[i]._children[z]._children[2]._children[1].size)
+
+
+                }
+
+            }
+
+//
+
+            gender_fill._children[0]._children[0].size = genderMI + genderFI
+            gender_fill._children[0]._children[0]._children[0]._children[0].size = genderMI
+            gender_fill._children[0]._children[0]._children[0]._children[0].change = 100*(genderMI/last._children[0]._children[0]._children[0]._children[0].size-1)
+            if(h==0){gender_fill._children[0]._children[0]._children[0]._children[0].change=0}
+            gender_fill._children[0]._children[0]._children[0]._children[1].size = genderFI
+            gender_fill._children[0]._children[0]._children[0]._children[1].change = 100*( genderFI/last._children[0]._children[0]._children[0]._children[1].size-1)
+            if(h==0){gender_fill._children[0]._children[0]._children[0]._children[1].change=0}
+
+            gender_fill._children[0]._children[1].size = genderMII + genderFII
+            gender_fill._children[0]._children[1]._children[0]._children[0].size = genderMII
+            gender_fill._children[0]._children[1]._children[0]._children[0].change = 100*(genderMII/last._children[0]._children[1]._children[0]._children[0].size-1)
+            if(h==0){gender_fill._children[0]._children[1]._children[0]._children[0].change=0}
+            gender_fill._children[0]._children[1]._children[0]._children[1].size = genderFII
+            gender_fill._children[0]._children[1]._children[0]._children[1].change = 100*(genderFII/last._children[0]._children[1]._children[0]._children[1].size-1)
+            if(h==0){gender_fill._children[0]._children[1]._children[0]._children[0].change=0}
+
+
+            gender_fill._children[0]._children[2].size = genderMIII + genderFIII
+            gender_fill._children[0]._children[2]._children[0]._children[0].size = genderMIII
+            gender_fill._children[0]._children[2]._children[0]._children[0].change = 100*(genderMIII/last._children[0]._children[2]._children[0]._children[0].size-1)
+            if(h==0){gender_fill._children[0]._children[2]._children[0]._children[0].change=0}
+            gender_fill._children[0]._children[2]._children[0]._children[1].size = genderFIII
+            gender_fill._children[0]._children[2]._children[0]._children[1].change = 100*(genderFIII/last._children[0]._children[2]._children[0]._children[1].size-1)
+            if(h==0){gender_fill._children[0]._children[2]._children[0]._children[0].change=0}
+
+
+
+            if(h==0){ _1980_ = gender_fill}
+            else if (h ==1){ _1985_ = gender_fill}
+            else if (h==2) { _1990_ = gender_fill}
+            else if (h==3){ _1995_ = gender_fill}
+            else if (h==4) { _2000_ = gender_fill}
+            else if (h==5) { _2005_ = gender_fill}
+            else if (h==6) { _2010_ = gender_fill}
+
+//            var str = JSON.stringify(gender_fill, null, 1); // spacing level = 2
+//            console.log(str)
+
+        }
+
+
+
+
+
+
+
+    };
+
+
+</script>
+</body>
+</html>
