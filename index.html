@@ -5,6 +5,7 @@
     <title>Migration as an Instrument for International Development </title>
     <meta charset="UTF-8">
 
+
 </head>
 
 <!--Load Libraries-->
@@ -82,17 +83,22 @@
             </form></b>
     </div>
 
-
+    <!--<div id='PopUp' style=' position: absolute; left: 100px; top: 50px; border: solid black 1px; padding: 10px; background-color: rgb(200,100,100); text-align: justify; font-size: 12px; width: 135px;'-->
+         <!--onmouseout = "document.getElementById('PopUpText').style.display = 'none'" onmouseover="document.getElementById('PopUpText').style.display = '' ">-->
+        <!--<span id='PopUpText'>TEXT</span>-->
+    <!--</div>-->
 
 
     <div  id = "description" class="description">
-        <p><b><u>Our story</u></b></p>
+        <p  style = "margin: 0" onmouseout = "document.getElementById('PopUpText').style.display = 'none'; document.getElementById('description').style.height = '8em'" onmouseover="document.getElementById('PopUpText').style.display = '';  document.getElementById('description').style.height = '15em' "><b><u>Our story</u></b></p>
+       <span id='PopUpText' style = "display: none">
         <p style="text-align: left">
             In our dataset, we have a list of 20 non-OECD countries and 8 OECD countries.
             For each of these countries, we have wage information by education level from 2010 that we received from the World Bank.
             The first box below shows average/total (depending on the selection) wage differentials in wages for the selected list of non-OECD and OECD countries.
-            The second box shows total/average remittance flows and the thid box shows total/average aid flows. The three education levels are defined as Level I (No Education), Level II (Secondary Education), and Level III (Post Secondary Education).
+            The second box shows total/average remittance flows and the thid box shows total/average aid flows. The three education levels are defined as Level I (Less than Secondary Education ), Level II (Secondary Education), and Level III (Post Secondary Education).
         </p>
+           </span>
 
         <div  id = "counterW" class="counterW">
             <label id="amounter_earnedW">Total Wage Differential</label>
@@ -171,7 +177,7 @@
         <h3>Welcome to Migration as an Instrument for International Development</h3>
         <p>This is our attempt to visualize migration flows from developing or what we call "non-OECD" countries to developed or "OECD" countries.
             In order to assess the different metrics that migrants benefit from, we compare wage differentials among developing and developed nations and compare that to remittances and aid.
-        Push botton to continue</p>
+        Push button to continue</p>
 
         <div id="loading">
             <img src="css/ajax-loader.gif" alt="Loading..." />
@@ -200,15 +206,17 @@
 
         <div  id = "description1" class="description1">
             <p><b><u>Scatter Plot</u></b></p>
-            <p style="text-align: left">
-                Each dot on the plot to your left is a country's relative position in the migrant stock - average extra annual wage earned axes.
-                Hovering over a dot provides the name of the country.
-            </p>
-            <p style="text-align: left">
-                Brushing a dot or a list of dots changes other features of the visualization accordingly.
-                For example, brushing the right-most green dot shows Pakistan's relative position in the graph and updates the bar plots as well as the corresponding gains estimate above the map layout.
-                By migrating to OECD countries, the <u><span style="color: green">270,000</span></u> or so Pakistani high-skilled migrants, gained on an average <u><span style="color: green">$35,000</span></u> in wages in 2010.
-            </p>
+            <div id= "scatter_summary" class = "scatter_plot_summary">
+                <p style="text-align: left">
+                    Each dot on the plot to your left is a country's relative position in the migrant stock - average extra annual wage earned axes.
+                    Hovering over a dot provides the name of the country.
+                </p>
+                <p style="text-align: left">
+                    Brushing a dot or a list of dots changes other features of the visualization accordingly.
+                    For example, brushing the right-most green dot shows Pakistan's relative position in the graph and updates the bar plots as well as the corresponding gains estimate above the map layout.
+                    By migrating to OECD countries, the <u><span style="color: green">270,000</span></u> or so Pakistani high-skilled migrants, gained on an average <u><span style="color: green">$35,000</span></u> in wages in 2010.
+                </p>
+            </div>
         </div>
 
 
@@ -218,18 +226,23 @@
         </div>
 
         <div  id = "description2" class="description2">
-            <p><b><u>Bar Plot</u></b></p>
-            <p style="text-align: left">
-                Each blue bar to the left shows the total wage differential (average wage differential X total migrant stock) among migrants from a particular non-OECD country to the average wages in the OECD country.
-                Because total remittances and aid flows are orders of magnitude lower in comparison to wage differentials, we have implemented a slider with a log scale that allows you to see the other two metrics of comparison.
-            </p>
-            <p style="text-align: left">
-                Clicking on a country updates other visuals and estimates for gains accordingly. For example, in 2010, Nepal had around <u><span style="color: blue">50,000</span></u> migrants in OECD countries.
-                If we sum up the average wages gained by each of those migrants by moving to a OECD country, we come up with the estimate of <u><span style="color: blue">$1,250,000,000</span></u>.
-            </p>
+                <p id = "bar_sum_label" ><b><u>Bar Plot</u></b></p>
+            <div id= "bar_summary" class = "bar_plot_summary">
+
+                <p  style="text-align: left">
+                    Each blue bar to the left shows the total wage differential (average wage differential X total migrant stock) among migrants from a particular non-OECD country to the average wages in the OECD country.
+                    Because total remittances and aid flows are orders of magnitude lower in comparison to wage differentials, we have implemented a slider with a log scale that allows you to see the other two metrics of comparison.
+                </p>
+
+                <p style="text-align: left">
+                    Clicking on a country updates other visuals and estimates for gains accordingly. For example, in 2010, Nepal had around <u><span style="color: blue">50,000</span></u> migrants in OECD countries.
+                    If we sum up the average wages gained by each of those migrants by moving to a OECD country, we come up with the estimate of <u><span style="color: blue">$1,825,000,000</span></u>.
+                </p>
+            </div>
         </div>
+
         <div  id = "footers" class = "footers" >
-            <p>This Website was created by Samik Adhikari and Nicholas Stellitano.  Both are students at the Harvard Kennedy School </p>
+            <p>&copy This Website was created by Samik Adhikari and Nicholas Stellitano.  Both are MPA/ID'15 students at the Harvard Kennedy School. </p>
 
             <li><a href="https://www.youtube.com/watch?v=TzdWsYaYuoc">Video</a></li>
             <li><a href="http://adhikarisamik.github.io/data/process_book.pdf">Process Book </a></li>
@@ -252,12 +265,12 @@ $(function() {
     document.getElementById("description4").style.display = "none";
 
     var cdata, ccapitals, alldata;
-    var last_name;
     var scatter_vis
     var stackbar_vis
     var oecd_bar, oecd_bar1, count=0;
     var non_oecd = ["Argentina", "Colombia", "Dominican Republic", "Ecuador", "Ethiopia", "Honduras", "Indonesia",
-        "Jordan", "Mauritius", "Mongolia", "Nepal", "Pakistan", "Panama", "Paraguay", "Peru", "Rwanda", "South Africa", "Uruguay", "Zambia"]
+        "Jordan", "Mauritius", "Mongolia", "Nepal", "Pakistan", "Panama", "Paraguay", "Peru", "Rwanda", "South Africa", "Uruguay", "Zambia"];
+    var last_name = non_oecd;
 
     //------------Load the Data and begin-------------------------------------------------------------------------------------------------------------------------------
     //-------------------------------------------------------------------------------------------------------------------------------------------------

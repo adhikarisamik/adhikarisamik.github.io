@@ -46,9 +46,9 @@ ScatterVis.prototype.initVis = function(){
 
     this.color = d3.scale.category10();
 
-    this.color_hash = {  0 : ["No Education", "Black"],
-        1 : ["Secondary Education", "Red"],
-        2 : ["Post-Secondary Education", "Green"]
+    this.color_hash = {  0 : ["< Secondary Educ", "Black"],
+        1 : ["Secondary Educ", "Red"],
+        2 : ["Post-Secondary Educ", "Green"]
     }
 
     this.xAxis = d3.svg.axis()

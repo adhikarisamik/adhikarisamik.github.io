@@ -205,7 +205,7 @@ body{
     float: left;
     width: 64%;
     /*background-color: #efefef;*/
-    height: 15em;
+    height: 8em;
     overflow: scroll;
     margin:.5em 0 .5em 0;
     /*border: 1px solid black;*/
@@ -274,7 +274,7 @@ label {
     float: left;
     margin: 1%;
     background-color: white;
-    height: 40em;
+    height: 43em;
     transition:500ms linear;
     /*border: 1px solid black;*/
     background-image: url('light_grey.png');
@@ -482,3 +482,71 @@ li.key {
 
 
 
+
+
+.description2, .description1{
+
+    overflow:hidden;
+    position:relative;
+    /* the container's height will determine the height of its slider  */
+    /*height:350px; */
+}
+
+
+.bar_plot_summary {
+    overflow-y: scroll;
+    /* complete liquid height based on the parent's height!! */
+    height:100%;
+
+    /* only transition on transform properties which are hardware accelerated = way better performances */
+    -webkit-transition:-webkit-transform .3s ease;
+    -moz-transition:   -moz-transform .3s ease;
+    -ms-transition:    -ms-transform .3s ease;
+    transition:        transform .3s ease;
+}
+
+.bar_plot_summary {
+    /* visible */
+    -webkit-transform: translate(-100%, 0);
+    -moz-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+}
+.description2:hover .bar_plot_summary {
+    /* completely offscreen */
+
+
+    -webkit-transform: translate(0, 0%);
+    -moz-transform: translate(0, 0%);
+    -ms-transform: translate(0, 0%);
+    transform: translate(0, 0%);
+}
+
+.scatter_plot_summary {
+    overflow-y: scroll;
+    /* complete liquid height based on the parent's height!! */
+    height:100%;
+
+    /* only transition on transform properties which are hardware accelerated = way better performances */
+    -webkit-transition:-webkit-transform .3s ease;
+    -moz-transition:   -moz-transform .3s ease;
+    -ms-transition:    -ms-transform .3s ease;
+    transition:        transform .3s ease;
+}
+
+.scatter_plot_summary {
+    /* visible */
+    -webkit-transform: translate(-100%, 0);
+    -moz-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+}
+.description1:hover .scatter_plot_summary {
+    /* completely offscreen */
+
+
+    -webkit-transform: translate(0, 0%);
+    -moz-transform: translate(0, 0%);
+    -ms-transform: translate(0, 0%);
+    transform: translate(0, 0%);
+}
