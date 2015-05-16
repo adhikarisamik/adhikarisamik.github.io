@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3a248e09-2655-466e-80da-19150ba1a63c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Process Book.docx" afterPath="$PROJECT_DIR$/Process Book.docx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/process_book.pdf" afterPath="$PROJECT_DIR$/data/process_book.pdf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
     </list>
     <ignored path="adhikarisamik.github.io.iws" />
@@ -26,8 +28,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7235023">
-              <caret line="113" column="66" selection-start-line="113" selection-start-column="66" selection-end-line="113" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.21658987">
+              <caret line="96" column="101" selection-start-line="96" selection-start-column="101" selection-end-line="96" selection-end-column="101" />
               <folding />
             </state>
           </provider>
@@ -178,8 +180,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7235023">
-          <caret line="113" column="66" selection-start-line="113" selection-start-column="66" selection-end-line="113" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.21658987">
+          <caret line="96" column="101" selection-start-line="96" selection-start-column="101" selection-end-line="96" selection-end-column="101" />
           <folding />
         </state>
       </provider>
