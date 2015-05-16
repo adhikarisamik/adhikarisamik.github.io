@@ -51,9 +51,9 @@ StackbarVis.prototype.initVis = function(){
         .range([this.height-98,30]);
 
 
-    this.color_hash = {  0 : ["Wage Differential", "Blue"],
-        1 : ["Aid", "Orange"],
-        2 : ["Remittance", "Red"]
+    this.color_hash = {  0 : ["Total Wages Gained", "Blue"],
+        1 : ["Total Aid", "Orange"],
+        2 : ["Total Remittances", "Red"]
     }
 
     this.xAxis = d3.svg.axis()
